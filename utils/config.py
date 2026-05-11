@@ -55,6 +55,7 @@ class ProviderConfig:
     linuxdo_auth_redirect_path: str = "/oauth/**"  # OAuth 回调路径匹配模式，支持通配符
     aliyun_captcha: bool = False
     bypass_method: Literal["waf_cookies", "cf_clearance"] | None = None
+    auto_add: bool = False
     isCustomize: bool = False  # 是否为自定义 provider（从环境变量加载）
 
     @classmethod
@@ -90,6 +91,7 @@ class ProviderConfig:
             linuxdo_auth_redirect_path=data.get("linuxdo_auth_redirect_path", "/oauth/**"),
             aliyun_captcha=data.get("aliyun_captcha", False),
             bypass_method=data.get("bypass_method"),
+            auto_add=data.get("auto_add", False),
             isCustomize=is_customize,
         )
 
@@ -432,6 +434,9 @@ class AppConfig:
         # 遍历所有自定义 provider
         for provider_name, provider_config in providers.items():
             if not provider_config.isCustomize:
+                continue
+
+            if not provider_config.auto_add:
                 continue
 
             # 如果该 provider 已经在 accounts 中，跳过

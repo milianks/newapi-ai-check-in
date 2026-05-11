@@ -217,7 +217,7 @@ Affs:
 在仓库的 Settings -> Environments -> production -> Environment secrets 中添加：
    - Name: `PROVIDERS`
    - Value: 供应商
-   - 说明: 自定义的 provider 会自动添加到账号中执行（在账号配置中没有使用自定义 provider 情况下, 详见 [PROVIDERS.json](./PROVIDERS.json)）。
+   - 说明: 自定义 provider 默认不会自动添加到账号中；只有配置 `"auto_add": true`，且账号配置中没有使用该 provider 时，才会自动添加执行（详见 [PROVIDERS.json](./PROVIDERS.json)）。
 
 
 #### 3.5 代理配置
